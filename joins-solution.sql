@@ -40,9 +40,12 @@ GROUP BY "products"."description";
 
 -- Stretch
 -- 9. How much was the total cost for each order?
-
+SELECT "orders"."order_date", SUM("line_items"."quantity" * "products"."unit_price") FROM "orders"
+JOIN "line_items" ON "line_items"."order_id" = "orders"."id"
+JOIN "products" ON "products"."id" = "line_items"."product_id"
+GROUP BY "orders"."order_date";
 
 -- 10. How much has each customer spent in total?
 
 
--- 11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table. It should say 0, not NULL (research coalesce).
+-- 11. How much has each customer spent in total? Customers who have spent $0 should still 
