@@ -40,12 +40,18 @@ GROUP BY "products"."description";
 
 -- Stretch
 -- 9. How much was the total cost for each order?
-SELECT "orders"."order_date", SUM("line_items"."quantity" * "products"."unit_price") FROM "orders"
+SELECT "orders"."id" AS "order_id" , SUM("line_items"."quantity" * "products"."unit_price") AS "total_cost" FROM "orders"
 JOIN "line_items" ON "line_items"."order_id" = "orders"."id"
 JOIN "products" ON "products"."id" = "line_items"."product_id"
-GROUP BY "orders"."order_date";
+GROUP BY "orders"."id"
+ORDER BY "orders"."id";
 
 -- 10. How much has each customer spent in total?
-
+SELECT "customers"."first_name", SUM("line_items"."quantity" * "products"."unit_price") AS "total_cost" FROM "orders"
+JOIN "line_items" ON "line_items"."order_id" = "orders"."id"
+JOIN "products" ON "products"."id" = "line_items"."product_id"
+JOIN "addresses" ON "addresses"."id" = "orders"."address_id"
+JOIN "customers" ON "customers"."id" = "addresses"."customer_id"
+GROUP BY "customers"."first_name";
 
 -- 11. How much has each customer spent in total? Customers who have spent $0 should still 
