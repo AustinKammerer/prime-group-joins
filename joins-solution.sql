@@ -54,4 +54,5 @@ JOIN "addresses" ON "addresses"."id" = "orders"."address_id"
 JOIN "customers" ON "customers"."id" = "addresses"."customer_id"
 GROUP BY "customers"."first_name";
 
--- 11. How much has each customer spent in total? Customers who have spent $0 should still 
+-- 11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table. 
+-- It should say 0, not NULL (research coalesce).
