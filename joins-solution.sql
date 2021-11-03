@@ -56,3 +56,9 @@ GROUP BY "customers"."first_name";
 
 -- 11. How much has each customer spent in total? Customers who have spent $0 should still show up in the table. 
 -- It should say 0, not NULL (research coalesce).
+SELECT "customers"."first_name", COALESCE(SUM("line_items"."quantity" * "products"."unit_price"), 0) AS "total_cost" FROM "orders"
+JOIN "line_items" ON "line_items"."order_id" = "orders"."id"
+JOIN "products" ON "products"."id" = "line_items"."product_id"
+JOIN "addresses" ON "addresses"."id" = "orders"."address_id"
+RIGHT JOIN "customers" ON "customers"."id" = "addresses"."customer_id"
+GROUP BY "customers"."first_name";
